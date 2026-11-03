@@ -1,4 +1,6 @@
+
 import 'package:flutter/material.dart';
+
 import '../theme/app_colors.dart';
 
 // Cartão reutilizável para apresentar projetos
@@ -19,91 +21,83 @@ class ProjectCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      elevation: 3,
       clipBehavior: Clip.antiAlias,
-      color: Colors.white,
-
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(16),
-      ),
-
-      child: Stack(
-        children: [
-          // Conteúdo principal do cartão
-          Padding(
-            padding: const EdgeInsets.all(14),
-
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+      child: Padding(
+        padding: const EdgeInsets.all(14),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            // Ícone e etiqueta
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Icon(
                   icone,
-                  size: 32,
+                  size: 30,
                   color: AppColors.roxo,
                 ),
 
-                const SizedBox(height: 12),
-
-                Text(
-                  titulo,
-                  style: const TextStyle(
-                    fontSize: 15,
-                    fontWeight: FontWeight.bold,
-                    color: AppColors.roxoEscuro,
+                Container(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 7,
+                    vertical: 4,
                   ),
-                ),
-
-                const SizedBox(height: 6),
-
-                Expanded(
-                  child: Text(
-                    descricao,
-                    style: const TextStyle(
-                      fontSize: 12,
-                      color: Colors.black54,
+                  decoration: BoxDecoration(
+                    color: AppColors.chip,
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  child: const Text(
+                    'Projeto',
+                    style: TextStyle(
+                      fontSize: 9,
+                      color: AppColors.roxoEscuro,
+                      fontWeight: FontWeight.bold,
                     ),
-                  ),
-                ),
-
-                Text(
-                  tecnologia,
-                  style: const TextStyle(
-                    fontSize: 11,
-                    fontWeight: FontWeight.bold,
-                    color: AppColors.roxo,
                   ),
                 ),
               ],
             ),
-          ),
 
-          // Etiqueta posicionada no canto superior direito
-          Positioned(
-            top: 8,
-            right: 8,
+            const SizedBox(height: 12),
 
-            child: Container(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 7,
-                vertical: 4,
+            Text(
+              titulo,
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+              style: const TextStyle(
+                fontSize: 15,
+                fontWeight: FontWeight.bold,
+                color: AppColors.roxoEscuro,
               ),
+            ),
 
-              decoration: BoxDecoration(
-                color: AppColors.chip,
-                borderRadius: BorderRadius.circular(8),
-              ),
+            const SizedBox(height: 6),
 
-              child: const Text(
-                'Projeto',
-                style: TextStyle(
-                  fontSize: 9,
-                  color: AppColors.roxoEscuro,
-                  fontWeight: FontWeight.bold,
+            // Descrição ocupa o espaço restante
+            Expanded(
+              child: Text(
+                descricao,
+                maxLines: 3,
+                overflow: TextOverflow.ellipsis,
+                style: const TextStyle(
+                  fontSize: 12,
+                  color: Colors.black54,
                 ),
               ),
             ),
-          ),
-        ],
+
+            Text(
+              tecnologia,
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+              style: const TextStyle(
+                fontSize: 11,
+                fontWeight: FontWeight.bold,
+                color: AppColors.roxo,
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

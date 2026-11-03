@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'screens/perfil_screen.dart';
-import 'theme/app_colors.dart';
+import 'theme/app_theme.dart';
 
 // Inicialização da aplicação
 void main() {
@@ -18,13 +18,8 @@ class DevFolioApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'DevFolio App',
 
-      theme: ThemeData(
-        useMaterial3: true,
-
-        colorScheme: ColorScheme.fromSeed(
-          seedColor: AppColors.roxo,
-        ),
-      ),
+      // Tema centralizado em AppTheme
+      theme: AppTheme.temaPrincipal,
 
       home: const PerfilScreen(),
     );
