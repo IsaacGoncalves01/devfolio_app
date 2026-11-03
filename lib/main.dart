@@ -1,121 +1,425 @@
+
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(const DevFolioApp());
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+// Aplicação principal
+class DevFolioApp extends StatelessWidget {
+  const DevFolioApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      debugShowCheckedModeBanner: false,
+      title: 'DevFolio App',
+
       theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // TRY THIS: Try running your application with "flutter run". You'll see
-        // the application has a purple toolbar. Then, without quitting the app,
-        // try changing the seedColor in the colorScheme below to Colors.green
-        // and then invoke "hot reload" (save your changes or press the "hot
-        // reload" button in a Flutter-supported IDE, or press "r" if you used
-        // the command line to start the app).
-        //
-        // Notice that the counter didn't reset back to zero; the application
-        // state is not lost during the reload. To reset the state, use hot
-        // restart instead.
-        //
-        // This works for code too, not just values: Most code changes can be
-        // tested with just a hot reload.
-        colorScheme: .fromSeed(seedColor: Colors.deepPurple),
+        useMaterial3: true,
+        colorScheme: ColorScheme.fromSeed(
+          seedColor: const Color(0xFF7046A5),
+        ),
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+
+      home: const PerfilScreen(),
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
+// Tela de perfil do desenvolvedor
+class PerfilScreen extends StatelessWidget {
+  const PerfilScreen({super.key});
 
-  // This widget is the home page of your application. It is stateful, meaning
-  // that it has a State object (defined below) that contains fields that affect
-  // how it looks.
-
-  // This class is the configuration for the state. It holds the values (in this
-  // case the title) provided by the parent (in this case the App widget) and
-  // used by the build method of the State. Fields in a Widget subclass are
-  // always marked "final".
-
-  final String title;
-
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      _counter++;
-    });
-  }
+  static const Color roxo = Color(0xFF7046A5);
+  static const Color roxoEscuro = Color(0xFF382052);
+  static const Color fundo = Color(0xFFF5F2F9);
 
   @override
   Widget build(BuildContext context) {
-    // This method is rerun every time setState is called, for instance as done
-    // by the _incrementCounter method above.
-    //
-    // The Flutter framework has been optimized to make rerunning build methods
-    // fast, so that you can just rebuild anything that needs updating rather
-    // than having to individually change instances of widgets.
     return Scaffold(
+      backgroundColor: fundo,
+
       appBar: AppBar(
-        // TRY THIS: Try changing the color here to a specific color (to
-        // Colors.amber, perhaps?) and trigger a hot reload to see the AppBar
-        // change color while the other colors stay the same.
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
-        title: Text(widget.title),
+        title: const Text(
+          'DevFolio',
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
+        backgroundColor: fundo,
+        foregroundColor: roxoEscuro,
+        elevation: 0,
       ),
-      body: Center(
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
-        child: Column(
-          // Column is also a layout widget. It takes a list of children and
-          // arranges them vertically. By default, it sizes itself to fit its
-          // children horizontally, and tries to be as tall as its parent.
-          //
-          // Column has various properties to control how it sizes itself and
-          // how it positions its children. Here we use mainAxisAlignment to
-          // center the children vertically; the main axis here is the vertical
-          // axis because Columns are vertical (the cross axis would be
-          // horizontal).
-          //
-          // TRY THIS: Invoke "debug painting" (choose the "Toggle Debug Paint"
-          // action in the IDE, or press "p" in the console), to see the
-          // wireframe for each widget.
-          mainAxisAlignment: .center,
-          children: [
-            const Text('You have pushed the button this many times:'),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headlineMedium,
+
+      body: SingleChildScrollView(
+        padding: const EdgeInsets.all(24),
+
+        child: Center(
+          child: ConstrainedBox(
+            constraints: const BoxConstraints(maxWidth: 850),
+
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+
+                // CARTÃO DE IDENTIFICAÇÃO
+                Container(
+                  padding: const EdgeInsets.all(28),
+
+                  decoration: BoxDecoration(
+                    gradient: const LinearGradient(
+                      colors: [
+                        roxoEscuro,
+                        roxo,
+                      ],
+                      begin: Alignment.topLeft,
+                      end: Alignment.bottomRight,
+                    ),
+
+                    borderRadius: BorderRadius.circular(24),
+
+                    border: Border.all(
+                      color: Colors.white.withValues(alpha: 0.25),
+                      width: 1.5,
+                    ),
+
+                    boxShadow: [
+                      BoxShadow(
+                        color: roxo.withValues(alpha: 0.20),
+                        blurRadius: 18,
+                        offset: const Offset(0, 8),
+                      ),
+                    ],
+                  ),
+
+                  child: Column(
+                    children: [
+
+                      // FOTO DE PERFIL
+                      CircleAvatar(
+                        radius: 58,
+                        backgroundColor: Colors.white,
+
+                        child: CircleAvatar(
+                          radius: 53,
+                          backgroundImage: const AssetImage(
+                            'assets/images/perfil.png',
+                          ),
+                        ),
+                      ),
+
+                      const SizedBox(height: 20),
+
+                      // NOME
+                      const Text(
+                        'Aluno Teste',
+                        textAlign: TextAlign.center,
+
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 28,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+
+                      const SizedBox(height: 8),
+
+                      // IDENTIFICAÇÃO PROFISSIONAL
+                      const Text(
+                        'Desenvolvedora Mobile em Formação',
+                        textAlign: TextAlign.center,
+
+                        style: TextStyle(
+                          color: Colors.white70,
+                          fontSize: 15,
+                        ),
+                      ),
+
+                      const SizedBox(height: 20),
+
+                      // STATUS
+                      Container(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 16,
+                          vertical: 8,
+                        ),
+
+                        decoration: BoxDecoration(
+                          color: Colors.white.withValues(alpha: 0.15),
+                          borderRadius: BorderRadius.circular(30),
+                          border: Border.all(color: Colors.white30),
+                        ),
+
+                        child: const Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Icon(
+                              Icons.circle,
+                              color: Color(0xFF8BE3A1),
+                              size: 10,
+                            ),
+
+                            SizedBox(width: 8),
+
+                            Text(
+                              'Em constante aprendizado',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 12,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+
+                      const SizedBox(height: 24),
+
+                      Divider(
+                        color: Colors.white.withValues(alpha: 0.3),
+                      ),
+
+                      const SizedBox(height: 16),
+
+                      // INFORMAÇÕES DE CONTATO
+                      Wrap(
+                        alignment: WrapAlignment.center,
+                        spacing: 24,
+                        runSpacing: 16,
+
+                        children: const [
+                          InfoItem(
+                            icone: Icons.email_outlined,
+                            texto: 'Seu e-mail',
+                          ),
+
+                          InfoItem(
+                            icone: Icons.code,
+                            texto: 'GitHub: AlunoTeste',
+                          ),
+
+                          InfoItem(
+                            icone: Icons.school_outlined,
+                            texto: 'Téc. em Desenvolvimento',
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+
+                const SizedBox(height: 24),
+
+                // SEÇÃO SOBRE MIM
+                Container(
+                  padding: const EdgeInsets.all(24),
+
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(20),
+                    border: Border.all(
+                      color: const Color(0xFFE6DDEE),
+                    ),
+                  ),
+
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Text(
+                        'Sobre mim',
+                        style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                          color: roxoEscuro,
+                        ),
+                      ),
+
+                      const SizedBox(height: 12),
+
+                      const Text(
+                        'Sou estudante de Desenvolvimento de Sistemas, '
+                        'interessado em tecnologia, programação e '
+                        'desenvolvimento de soluções digitais. Estou constantemente '
+                        'aprimorando minhas habilidades por meio de '
+                        'estudos e projetos práticos.',
+
+                        style: TextStyle(
+                          color: Colors.black87,
+                          fontSize: 15,
+                          height: 1.6,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+
+                const SizedBox(height: 24),
+
+                // SEÇÃO DE HABILIDADES
+                Container(
+                  padding: const EdgeInsets.all(24),
+
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(20),
+                    border: Border.all(
+                      color: const Color(0xFFE6DDEE),
+                    ),
+                  ),
+
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Text(
+                        'Habilidades técnicas',
+                        style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                          color: roxoEscuro,
+                        ),
+                      ),
+
+                      const SizedBox(height: 16),
+
+                      Wrap(
+                        spacing: 10,
+                        runSpacing: 10,
+
+                        children: const [
+                          SkillChip(
+                            habilidade: 'Flutter',
+                            icone: Icons.phone_android,
+                          ),
+
+                          SkillChip(
+                            habilidade: 'Dart',
+                            icone: Icons.code,
+                          ),
+
+                          SkillChip(
+                            habilidade: 'HTML',
+                            icone: Icons.html,
+                          ),
+
+                          SkillChip(
+                            habilidade: 'CSS',
+                            icone: Icons.palette_outlined,
+                          ),
+
+                          SkillChip(
+                            habilidade: 'JavaScript',
+                            icone: Icons.javascript,
+                          ),
+
+                          SkillChip(
+                            habilidade: 'Git & GitHub',
+                            icone: Icons.source,
+                          ),
+
+                          SkillChip(
+                            habilidade: 'SQL',
+                            icone: Icons.storage,
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+
+                const SizedBox(height: 24),
+
+                // RODAPÉ
+                const Center(
+                  child: Text(
+                    'DevFolio App • Meu portfólio em desenvolvimento',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      color: Colors.black54,
+                      fontSize: 12,
+                    ),
+                  ),
+                ),
+
+                const SizedBox(height: 16),
+              ],
             ),
-          ],
+          ),
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
+    );
+  }
+}
+
+// Widget para informações do desenvolvedor
+class InfoItem extends StatelessWidget {
+  final IconData icone;
+  final String texto;
+
+  const InfoItem({
+    super.key,
+    required this.icone,
+    required this.texto,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Icon(
+          icone,
+          color: Colors.white70,
+          size: 18,
+        ),
+
+        const SizedBox(width: 8),
+
+        Text(
+          texto,
+          style: const TextStyle(
+            color: Colors.white,
+            fontSize: 12,
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+// Widget para representar habilidades técnicas
+class SkillChip extends StatelessWidget {
+  final String habilidade;
+  final IconData icone;
+
+  const SkillChip({
+    super.key,
+    required this.habilidade,
+    required this.icone,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Chip(
+      avatar: Icon(
+        icone,
+        size: 18,
+        color: PerfilScreen.roxo,
+      ),
+
+      label: Text(habilidade),
+
+      backgroundColor: const Color(0xFFF1EAF8),
+
+      side: BorderSide(
+        color: PerfilScreen.roxo.withValues(alpha: 0.20),
+      ),
+
+      labelStyle: const TextStyle(
+        color: PerfilScreen.roxoEscuro,
+        fontWeight: FontWeight.w600,
+      ),
+
+      padding: const EdgeInsets.symmetric(
+        horizontal: 8,
+        vertical: 4,
       ),
     );
   }
